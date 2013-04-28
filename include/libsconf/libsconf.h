@@ -4,7 +4,6 @@
 ** @date 04/28/2013
 ** @author Baptiste COVOLATO <b.covolato@gmail.com>
 **
-** @license
 ** Copyright (C) 2013 Baptiste COVOLATO
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
 ** of this software and associated documentation files (the "Software"), to
@@ -30,16 +29,35 @@
 
 # include <stdlib.h>
 
+/**
+** @brief   The configuration state is the structure that contains your
+            configuration. Thanks to it you will be allowed to import/save
+            a configuration from/in a file and manage it
+*/
 typedef struct
 {
+    /**
+    ** @brief The path of the file where libsconf read/write your configuration
+    */
     char *path;
 } libsconf_t;
 
+/**
+** @brief   Create a new configuration state
+**
+** @return  The allocated configuration state, NULL if it failed
+*/
 libsconf_t *libsconf_new();
 
 int libsconf_open(libsconf_t *conf);
 int libsconf_save(libsconf_t *conf);
 
+/**
+** @brief   Delete a configuration state previously allocated with @a
+            libsconf_new()
+**
+** @param   conf    The configuration state you want to free
+*/
 void libsconf_free(libsconf_t *conf);
 
 #endif /* !LIBSCONF_H */
