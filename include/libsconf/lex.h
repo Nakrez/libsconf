@@ -1,6 +1,6 @@
 /**
-** @file libsconf.h
-** @brief Main header of libsconf
+** @file lex.h
+** @brief Libsconf configuration file lexer
 ** @date 04/28/2013
 ** @author Baptiste COVOLATO <b.covolato@gmail.com>
 **
@@ -24,40 +24,14 @@
 ** THE SOFTWARE.
 */
 
-#ifndef LIBSCONF_H
-# define LIBSCONF_H
+#ifndef LIBSCONF_LEX_H
+# define LIBSCONF_LEX_H
 
-# include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 
 # include <libsconf/data_type.h>
-# include <libsconf/parse.h>
 
-/**
-** @brief   Create a new configuration state
-**
-** @return  The allocated configuration state, NULL if it failed
-*/
-libsconf_t *libsconf_new();
+int libsconf_lex(libsconf_t *conf);
 
-/**
-** @brief   Load a configuration from a file (in @a conf->path)
-**
-** @param   conf    The libsconf state where to load the file
-**
-** @return  0 if everything went well, -1 if @a conf->path is NULL, -2 if
-**          opening the file failed
-*/
-int libsconf_import(libsconf_t *conf);
-
-int libsconf_export(libsconf_t *conf);
-
-/**
-** @brief   Delete a configuration state previously allocated with @a
-**          libsconf_new()
-**
-** @param   conf    The configuration state you want to free
-*/
-void libsconf_free(libsconf_t *conf);
-
-#endif /* !LIBSCONF_H */
+#endif /* !LEX_H */

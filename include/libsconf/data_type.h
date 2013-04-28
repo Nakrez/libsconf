@@ -1,6 +1,6 @@
 /**
-** @file libsconf.h
-** @brief Main header of libsconf
+** @file data_type.h
+** @brief All data type used in libsconf
 ** @date 04/28/2013
 ** @author Baptiste COVOLATO <b.covolato@gmail.com>
 **
@@ -24,40 +24,61 @@
 ** THE SOFTWARE.
 */
 
-#ifndef LIBSCONF_H
-# define LIBSCONF_H
+#ifndef LIBSCONF_DATA_TYPE_H
+# define LIBSCONF_DATA_TYPE_H
 
 # include <stdio.h>
-# include <stdlib.h>
 
-# include <libsconf/data_type.h>
-# include <libsconf/parse.h>
+typedef enum
+{
+    TOK_SEPARATOR,
+
+    TOK_ID,
+
+    TOK_DATA,
+
+    /* = */
+    TOK_ASSIGN,
+
+    /* { */
+    TOK_BEGIN_MAP,
+
+    /* } */
+    TOK_END_MAP,
+
+    /* [ */
+    TOK_BEGIN_LIST,
+
+    /* ] */
+    TOK_END_LIST,
+
+    /* , */
+    TOK_SEP_LIST
+} libsconf_token_type_e;
+
+typedef struct
+{
+    libsconf_token_type_e type;
+    char *content;
+} libsconf_token_t;
 
 /**
-** @brief   Create a new configuration state
-**
-** @return  The allocated configuration state, NULL if it failed
+** @brief   The configuration state is the structure that contains your
+            configuration. Thanks to it you will be allowed to import/save
+            a configuration from/in a file and manage it
+            Be carefull all intern_* of libsconf_t are internal variables of
+            configuration you must not modify it by hand
 */
-libsconf_t *libsconf_new();
+typedef struct
+{
+    /**
+    ** @brief The path of the file where libsconf read/write your configuration
+    */
+    char *path;
 
-/**
-** @brief   Load a configuration from a file (in @a conf->path)
-**
-** @param   conf    The libsconf state where to load the file
-**
-** @return  0 if everything went well, -1 if @a conf->path is NULL, -2 if
-**          opening the file failed
-*/
-int libsconf_import(libsconf_t *conf);
+    FILE *intern_file;
 
-int libsconf_export(libsconf_t *conf);
+    libsconf_token_t intern_tok;
+} libsconf_t;
 
-/**
-** @brief   Delete a configuration state previously allocated with @a
-**          libsconf_new()
-**
-** @param   conf    The configuration state you want to free
-*/
-void libsconf_free(libsconf_t *conf);
-
-#endif /* !LIBSCONF_H */
+#endif /* !LIBSCONF_DATA_TYPE_H */

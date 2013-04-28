@@ -42,3 +42,14 @@ void libsconf_free(libsconf_t *conf)
         free(conf);
     }
 }
+
+int libsconf_import(libsconf_t *conf)
+{
+    if (conf->path == NULL)
+        return -1;
+
+    if ((conf->intern_file = fopen(conf->path, "r")) == NULL)
+        return -2;
+
+    return libsconf_parse(conf);
+}
