@@ -20,3 +20,15 @@
 */
 
 #include <libsconf/libsconf.h>
+
+libsconf_t *libsconf_new()
+{
+    libsconf_t *conf = NULL;
+
+    if ((conf = malloc(sizeof (libsconf_t))) == NULL)
+        return NULL;
+
+    conf->path = NULL;
+
+    return conf;
+}

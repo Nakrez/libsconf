@@ -28,6 +28,8 @@
 #ifndef LIBSCONF_H
 # define LIBSCONF_H
 
+# include <stdlib.h>
+
 typedef struct
 {
     char *path;
