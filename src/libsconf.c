@@ -32,3 +32,13 @@ libsconf_t *libsconf_new()
 
     return conf;
 }
+
+void libsconf_free(libsconf_t *conf)
+{
+    if (conf)
+    {
+        free(conf->path);
+
+        free(conf);
+    }
+}
