@@ -28,6 +28,16 @@
 #ifndef LIBSCONF_H
 # define LIBSCONF_H
 
+typedef struct
+{
+    char *path;
+} libsconf_t;
 
+libsconf_t *libsconf_new();
+
+int libsconf_open(libsconf_t *conf);
+int libsconf_save(libsconf_t *conf);
+
+void libsconf_free(libsconf_t *conf);
 
 #endif /* !LIBSCONF_H */
