@@ -1,1 +1,0 @@
-gcc -Iinclude test/main.c -o main libsconf.a

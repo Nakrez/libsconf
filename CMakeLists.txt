@@ -34,6 +34,15 @@ if (DOXYGEN_FOUND)
                       # IF you do NOT want the documentation to be generated EVERY time you build the project
                       # then leave out the 'ALL' keyword from the above command.
 endif()
+
+
+SET(TEST_DIR "${CMAKE_CURRENT_SOURCE_DIR}/test")
+
+
+ENABLE_TESTING()
+
+add_subdirectory(${TEST_DIR})
+
 #######################
 #######################
 ##   DISTCLEAN RULE  ##

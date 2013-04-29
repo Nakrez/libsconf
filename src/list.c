@@ -1,6 +1,6 @@
 #include <libsconf/list.h>
 
-libsconf_list_t *lisconf_list_new()
+libsconf_list_t *libsconf_list_new()
 {
     libsconf_list_t *ret_val = NULL;
 
@@ -34,7 +34,7 @@ static void list_destroy(libsconf_list_t *list)
     }
 }
 
-void lisconf_list_free(libsconf_list_t *list)
+void libsconf_list_free(libsconf_list_t *list)
 {
     if (list)
     {
