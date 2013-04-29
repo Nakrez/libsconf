@@ -7,6 +7,7 @@ set(CMAKE_C_FLAGS_RELEASE "-Wall -Wextra -std=c99 -I${CMAKE_CURRENT_SOURCE_DIR}/
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_DEBUG}")
 
 add_library(libsconf
+            src/list.c
             src/parse.c
             src/lex.c
             src/libsconf.c)
@@ -27,7 +28,7 @@ if (DOXYGEN_FOUND)
     #-- Configure the Template Doxyfile for our specific project
     configure_file(cmake/Doxyfile.in
                    ${PROJECT_BINARY_DIR}/Doxyfile  @ONLY IMMEDIATE)
-    add_custom_target(docs ALL
+    add_custom_target(docs
                       COMMAND ${DOXYGEN_EXECUTABLE} ${PROJECT_BINARY_DIR}/Doxyfile
                       SOURCES ${PROJECT_BINARY_DIR}/Doxyfile)
                       # IF you do NOT want the documentation to be generated EVERY time you build the project

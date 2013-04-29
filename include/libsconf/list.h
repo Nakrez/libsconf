@@ -1,6 +1,6 @@
 /**
-** @file data_list.h
-** @brief Internal data type for libsconf lists
+** @file list.h
+** @brief Function dealing with list management
 ** @date 04/29/2013
 ** @author Baptiste COVOLATO <b.covolato@gmail.com>
 **
@@ -24,23 +24,15 @@
 ** THE SOFTWARE.
 */
 
-#ifndef LIBSCONF_DATA_LIST_H
-# define LIBSCONF_DATA_LIST_H
+#ifndef LIBSCONF_LIST_H
+# define LIBSCONF_LIST_H
 
-# include <libsconf/data.h>
+# include <stdlib.h>
 
-struct libsconf_data_list
-{
-    libsconf_data_t *data;
-    struct libsconf_data_list *next;
-    struct libsconf_data_list *prev;
-};
+# include <libsconf/data_list.h>
 
-typedef struct libsconf_list
-{
-    int size;
-    struct libsconf_data_list *begin;
-    struct libsconf_data_list *end;
-} libsconf_list_t;
+libsconf_list_t *lisconf_list_new();
 
-#endif /* !LIBSCONF_DATA_LIST_H */
+void lisconf_list_free(libsconf_list_t *list);
+
+#endif /* !LIBSCONF_LIST_H */
