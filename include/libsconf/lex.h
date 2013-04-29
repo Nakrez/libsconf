@@ -32,6 +32,6 @@
 
 # include <libsconf/data_type.h>
 
-int libsconf_lex(libsconf_t *conf);
+int libsconf_lex(libsconf_t *conf, libsconf_token_type_e default_tok);
 
 #endif /* !LEX_H */

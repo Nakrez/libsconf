@@ -20,3 +20,79 @@
 */
 
 #include <libsconf/parse.h>
+
+libsconf_data_t *data(libsconf_t *conf)
+{
+    libsconf_data_t *ret_val;
+    int ret;
+
+    if ((ret_val = malloc(sizeof (libsconf_data_t))) == NULL)
+        return NULL;
+
+    ret = libsconf_lex(conf, TOK_DATA);
+
+    if (ret)
+        goto error;
+    else if (conf->intern_tok.type == TOK_DATA &&
+             conf->intern_tok.content != NULL)
+    {
+        ret_val->type = DATA_VALUE;
+        ret_val->data = conf->intern_tok.content;
+    }
+    else /* TODO handle list/map */
+        goto error;
+
+    return ret_val;
+
+error:
+    free(ret_val);
+    return NULL;
+}
+static int variable(libsconf_t *conf)
+{
+    /* When variable is called checked on TOK_ID already made */
+    int ret;
+    char *var_name = conf->intern_tok.content;
+
+    if (var_name == NULL)
+        goto error;
+
+    ret = libsconf_lex(conf, TOK_ID);
+
+    /* Checking if we have assignation */
+    if (ret || conf->intern_tok.type != TOK_ASSIGN)
+        goto error;
+
+    if (!data(conf))
+        goto error;
+
+    return 0;
+
+error:
+    /* TODO clean up */
+    return -1;
+}
+
+int libsconf_parse(libsconf_t *conf)
+{
+    int ret;
+
+    ret = libsconf_lex(conf, TOK_ID);
+
+    while (!ret)
+    {
+        if (conf->intern_tok.type != TOK_ID)
+            goto error;
+
+        if (variable(conf))
+            goto error;
+
+        ret = libsconf_lex(conf, TOK_ID);
+    }
+
+    return 0;
+
+error:
+    /* TODO perform clean up */
+    return -1;
+}

@@ -1,4 +1,9 @@
-/*
+/**
+** @file data.h
+** @brief Internal data of libsconf
+** @date 04/29/2013
+** @author Baptiste COVOLATO <b.covolato@gmail.com>
+**
 ** Copyright (C) 2013 Baptiste COVOLATO
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
 ** of this software and associated documentation files (the "Software"), to
@@ -19,43 +24,20 @@
 ** THE SOFTWARE.
 */
 
-#include <libsconf/libsconf.h>
+#ifndef LIBSCONF_DATA_H
+# define LIBSCONF_DATA_H
 
-libsconf_t *libsconf_new()
+typedef enum
 {
-    libsconf_t *conf = NULL;
+    DATA_VALUE,
+    DATA_LIST,
+    DATA_HASH
+} libsconf_data_type_e;
 
-    if ((conf = malloc(sizeof (libsconf_t))) == NULL)
-        return NULL;
-
-    conf->path = NULL;
-
-    return conf;
-}
-
-void libsconf_free(libsconf_t *conf)
+typedef struct
 {
-    if (conf)
-    {
-        free(conf->path);
+    libsconf_data_type_e type;
+    void *data;
+} libsconf_data_t;
 
-        free(conf);
-    }
-}
-
-int libsconf_import(libsconf_t *conf)
-{
-    int ret_val = 0;
-
-    if (conf->path == NULL)
-        return -1;
-
-    if ((conf->intern_file = fopen(conf->path, "r")) == NULL)
-        return -2;
-
-    ret_val = libsconf_parse(conf);
-
-    fclose(conf->intern_file);
-
-    return ret_val;
-}
+#endif /* !DATA_H */

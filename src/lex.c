@@ -53,14 +53,14 @@ static int is_token_char(char c, libsconf_t *conf)
     }
 }
 
-int libsconf_lex(libsconf_t *conf)
+int libsconf_lex(libsconf_t *conf, libsconf_token_type_e default_tok)
 {
     char buf[512];
     char read = 0;
 
     int pos = 0;
 
-    conf->intern_tok.type = TOK_DATA;
+    conf->intern_tok.type = default_tok;
 
     while ((fread(&read, 1, 1, conf->intern_file)) > 0)
     {
@@ -87,5 +87,5 @@ int libsconf_lex(libsconf_t *conf)
         strncpy(conf->intern_tok.content, buf, pos);
     }
 
-    return 0;
+    return !!feof(conf->intern_file);
 }

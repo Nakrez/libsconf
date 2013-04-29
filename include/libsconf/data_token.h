@@ -1,4 +1,9 @@
-/*
+/**
+** @file data_token.h
+** @brief Internal token of libsconf
+** @date 04/29/2013
+** @author Baptiste COVOLATO <b.covolato@gmail.com>
+**
 ** Copyright (C) 2013 Baptiste COVOLATO
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
 ** of this software and associated documentation files (the "Software"), to
@@ -19,43 +24,40 @@
 ** THE SOFTWARE.
 */
 
-#include <libsconf/libsconf.h>
+#ifndef LIBSCONF_DATA_TOKEN_H
+# define LIBSCONF_DATA_TOKEN_H
 
-libsconf_t *libsconf_new()
+typedef enum
 {
-    libsconf_t *conf = NULL;
+    TOK_SEPARATOR,
 
-    if ((conf = malloc(sizeof (libsconf_t))) == NULL)
-        return NULL;
+    TOK_ID,
 
-    conf->path = NULL;
+    TOK_DATA,
 
-    return conf;
-}
+    /* = */
+    TOK_ASSIGN,
 
-void libsconf_free(libsconf_t *conf)
+    /* { */
+    TOK_BEGIN_MAP,
+
+    /* } */
+    TOK_END_MAP,
+
+    /* [ */
+    TOK_BEGIN_LIST,
+
+    /* ] */
+    TOK_END_LIST,
+
+    /* , */
+    TOK_SEP_LIST
+} libsconf_token_type_e;
+
+typedef struct
 {
-    if (conf)
-    {
-        free(conf->path);
+    libsconf_token_type_e type;
+    char *content;
+} libsconf_token_t;
 
-        free(conf);
-    }
-}
-
-int libsconf_import(libsconf_t *conf)
-{
-    int ret_val = 0;
-
-    if (conf->path == NULL)
-        return -1;
-
-    if ((conf->intern_file = fopen(conf->path, "r")) == NULL)
-        return -2;
-
-    ret_val = libsconf_parse(conf);
-
-    fclose(conf->intern_file);
-
-    return ret_val;
-}
+#endif /* !LIBSCONF_DATA_TOKEN_H */

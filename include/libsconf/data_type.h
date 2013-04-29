@@ -29,38 +29,14 @@
 
 # include <stdio.h>
 
-typedef enum
-{
-    TOK_SEPARATOR,
+/* Internal data of libsconf */
+# include <libsconf/data.h>
 
-    TOK_ID,
+/* Internal data list of libsconf */
+# include <libsconf/data_list.h>
 
-    TOK_DATA,
-
-    /* = */
-    TOK_ASSIGN,
-
-    /* { */
-    TOK_BEGIN_MAP,
-
-    /* } */
-    TOK_END_MAP,
-
-    /* [ */
-    TOK_BEGIN_LIST,
-
-    /* ] */
-    TOK_END_LIST,
-
-    /* , */
-    TOK_SEP_LIST
-} libsconf_token_type_e;
-
-typedef struct
-{
-    libsconf_token_type_e type;
-    char *content;
-} libsconf_token_t;
+/* Internal token of libsconf */
+# include <libsconf/data_token.h>
 
 /**
 ** @brief   The configuration state is the structure that contains your

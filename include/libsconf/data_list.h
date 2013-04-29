@@ -1,4 +1,9 @@
-/*
+/**
+** @file data_list.h
+** @brief Internal data type for libsconf lists
+** @date 04/29/2013
+** @author Baptiste COVOLATO <b.covolato@gmail.com>
+**
 ** Copyright (C) 2013 Baptiste COVOLATO
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
 ** of this software and associated documentation files (the "Software"), to
@@ -19,43 +24,15 @@
 ** THE SOFTWARE.
 */
 
-#include <libsconf/libsconf.h>
+#ifndef LIBSCONF_DATA_LIST_H
+# define LIBSCONF_DATA_LIST_H
 
-libsconf_t *libsconf_new()
+# include <libsconf/data.h>
+
+typedef struct libsconf_list
 {
-    libsconf_t *conf = NULL;
+    libsconf_data_t *data;
+    struct libsconf_list *next;
+} libsconf_list_t;
 
-    if ((conf = malloc(sizeof (libsconf_t))) == NULL)
-        return NULL;
-
-    conf->path = NULL;
-
-    return conf;
-}
-
-void libsconf_free(libsconf_t *conf)
-{
-    if (conf)
-    {
-        free(conf->path);
-
-        free(conf);
-    }
-}
-
-int libsconf_import(libsconf_t *conf)
-{
-    int ret_val = 0;
-
-    if (conf->path == NULL)
-        return -1;
-
-    if ((conf->intern_file = fopen(conf->path, "r")) == NULL)
-        return -2;
-
-    ret_val = libsconf_parse(conf);
-
-    fclose(conf->intern_file);
-
-    return ret_val;
-}
+#endif /* !LIBSCONF_DATA_LIST_H */
