@@ -21,6 +21,8 @@
 
 #include <libsconf/parse.h>
 
+static int internal_of_hash_map(libsconf_t *conf);
+
 static libsconf_data_s *data(libsconf_t *conf)
 {
     libsconf_data_s *ret_val;
@@ -39,7 +41,23 @@ static libsconf_data_s *data(libsconf_t *conf)
         ret_val->type = DATA_VALUE;
         ret_val->data = conf->intern_tok.content;
     }
-    else /* TODO handle list/map */
+    else if (conf->intern_tok.type == TOK_BEGIN_MAP)
+    {
+        ret_val->type = DATA_HASH;
+
+        /* Create new hash map */
+        libsconf_stack_push(&conf->intern_stack, lsc_hash_map_new());
+
+        /* Parsing new hash map */
+        if (internal_of_hash_map(conf) == 1)
+            goto error;
+
+        if (ret || conf->intern_tok.type != TOK_END_MAP)
+            goto error;
+
+        ret_val->data = libsconf_stack_pop(&conf->intern_stack);
+    }
+    else /* TODO handle list*/
         goto error;
 
     return ret_val;
@@ -48,6 +66,7 @@ error:
     free(ret_val);
     return NULL;
 }
+
 static int variable(libsconf_t *conf)
 {
     /* When variable is called checked on TOK_ID already made */

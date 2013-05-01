@@ -23,7 +23,7 @@
 
 static int is_separator(char c)
 {
-    return c == ' ' || c == '\n' || c == '\t';
+    return c == ' ' || c == '\n' || c == '\t' || c == '\r';
 }
 
 static int is_token_char(char c, libsconf_t *conf)

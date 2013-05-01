@@ -5,3 +5,5 @@
              |_|_|_.__/|___/\___\___/|_| |_|_|
 
 - Fix lexer for separators
+- Add verbose mode (level 0 : no print, level 1 : parse error,
+                    level 2 : debug mode)
