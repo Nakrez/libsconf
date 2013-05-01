@@ -31,7 +31,7 @@
 
 struct libsconf_data_list
 {
-    libsconf_data_t *data;
+    libsconf_data_s *data;
     struct libsconf_data_list *next;
     struct libsconf_data_list *prev;
 };

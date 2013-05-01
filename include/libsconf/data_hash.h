@@ -1,7 +1,7 @@
 /**
-** @file data.h
-** @brief Internal data of libsconf
-** @date 04/29/2013
+** @file data_hash.h
+** @brief Internal data type for libsconf hash map
+** @date 05/01/2013
 ** @author Baptiste COVOLATO <b.covolato@gmail.com>
 **
 ** Copyright (C) 2013 Baptiste COVOLATO
@@ -24,20 +24,23 @@
 ** THE SOFTWARE.
 */
 
-#ifndef LIBSCONF_DATA_H
-# define LIBSCONF_DATA_H
+#ifndef DATA_HASH_H
+# define DATA_HASH_H
 
-typedef enum
+# include <libsconf/data.h>
+
+typedef struct libsconf_hash_data
 {
-    DATA_VALUE,
-    DATA_LIST,
-    DATA_HASH
-} libsconf_data_type_e;
+    char *key;
+    libsconf_data_s *data;
+    struct libsconf_hash_data *next;
+} libsconf_hash_data_s;
 
-typedef struct
+typedef struct libsconf_hash_map
 {
-    libsconf_data_type_e type;
-    void *data;
-} libsconf_data_s;
+    libsconf_hash_data_s **map;
+    unsigned size;
+    unsigned total_size;
+} libsconf_hash_map_s;
 
-#endif /* !DATA_H */
+#endif /* !DATA_HASH_H */

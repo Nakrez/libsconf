@@ -1,6 +1,7 @@
 SET(alias "/"
           "/test/"
-          "/test/list/")
+          "/test/list/"
+          "/test/hash_map/")
 
 FOREACH(name ${alias})
 EXEC_PROGRAM(

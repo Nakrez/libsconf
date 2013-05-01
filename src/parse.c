@@ -21,12 +21,12 @@
 
 #include <libsconf/parse.h>
 
-libsconf_data_t *data(libsconf_t *conf)
+static libsconf_data_s *data(libsconf_t *conf)
 {
-    libsconf_data_t *ret_val;
+    libsconf_data_s *ret_val;
     int ret;
 
-    if ((ret_val = malloc(sizeof (libsconf_data_t))) == NULL)
+    if ((ret_val = malloc(sizeof (libsconf_data_s))) == NULL)
         return NULL;
 
     ret = libsconf_lex(conf, TOK_DATA);
