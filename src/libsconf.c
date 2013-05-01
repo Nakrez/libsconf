@@ -42,10 +42,8 @@ libsconf_t *libsconf_new()
 
 void libsconf_free(libsconf_t *conf)
 {
-    printf("ssdf\n");
     if (conf)
     {
-        printf("sdf\n");
         free(conf->path);
         lsc_hash_map_free(conf->intern_root);
         free(conf);

@@ -79,28 +79,35 @@ error:
     return -1;
 }
 
-int libsconf_parse(libsconf_t *conf)
+static int internal_of_hash_map(libsconf_t *conf)
 {
     int ret;
 
-    libsconf_stack_push(&conf->intern_stack, conf->intern_root);
-
     ret = libsconf_lex(conf, TOK_ID);
 
-    while (!ret)
+    while (!ret && conf->intern_tok.type == TOK_ID)
     {
-        if (conf->intern_tok.type != TOK_ID)
-            goto error;
-
         if (variable(conf))
             goto error;
 
         ret = libsconf_lex(conf, TOK_ID);
     }
 
-    return 0;
+    if (ret)
+        return 1;
+    else
+        return 0;
 
 error:
-    /* TODO perform clean up */
     return -1;
+}
+
+int libsconf_parse(libsconf_t *conf)
+{
+    libsconf_stack_push(&conf->intern_stack, conf->intern_root);
+
+    if (internal_of_hash_map(conf) == 1)
+        return 0;
+    else
+        return -1;
 }
