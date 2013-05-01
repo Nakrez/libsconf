@@ -31,8 +31,8 @@
 
 # include <libsconf/data_stack.h>
 
-int push(libsconf_stack_s *stack, libsconf_hash_map_s *hm);
-libsconf_hash_map_s *pop(libsconf_stack_s *stack);
-libsconf_hash_map_s *top(libsconf_stack_s *stack);
+int libsconf_stack_push(libsconf_stack_s *stack, libsconf_hash_map_s *hm);
+libsconf_hash_map_s *libsconf_stack_pop(libsconf_stack_s *stack);
+libsconf_hash_map_s *libsconf_stack_top(libsconf_stack_s *stack);
 
 #endif /* !LIBSCONF_STACK_H */

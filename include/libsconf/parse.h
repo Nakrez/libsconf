@@ -28,6 +28,8 @@
 # define LIBSCON_PARSE_H
 
 # include <libsconf/data_type.h>
+# include <libsconf/stack.h>
+# include <libsconf/hash_map.h>
 # include <libsconf/lex.h>
 
 int libsconf_parse(libsconf_t *conf);

@@ -21,7 +21,7 @@
 
 #include <libsconf/stack.h>
 
-int push(libsconf_stack_s *stack, libsconf_hash_map_s *hm)
+int libsconf_stack_push(libsconf_stack_s *stack, libsconf_hash_map_s *hm)
 {
     if (stack->size < LIBSCONF_MAX_STACK_SIZE - 1)
     {
@@ -34,7 +34,7 @@ int push(libsconf_stack_s *stack, libsconf_hash_map_s *hm)
     return -1;
 }
 
-libsconf_hash_map_s *pop(libsconf_stack_s *stack)
+libsconf_hash_map_s *libsconf_stack_pop(libsconf_stack_s *stack)
 {
     if (stack->size > 0)
         return stack->stack[--(stack->size)];
@@ -42,7 +42,7 @@ libsconf_hash_map_s *pop(libsconf_stack_s *stack)
     return NULL;
 }
 
-libsconf_hash_map_s *top(libsconf_stack_s *stack)
+libsconf_hash_map_s *libsconf_stack_top(libsconf_stack_s *stack)
 {
     return stack->stack[stack->size - 1];
 }

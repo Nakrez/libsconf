@@ -38,6 +38,9 @@
 /* Internal token of libsconf */
 # include <libsconf/data_token.h>
 
+/* Internal stack of libsconf */
+# include <libsconf/data_stack.h>
+
 /**
 ** @brief   The configuration state is the structure that contains your
             configuration. Thanks to it you will be allowed to import/save
@@ -55,6 +58,10 @@ typedef struct
     FILE *intern_file;
 
     libsconf_token_t intern_tok;
+
+    libsconf_stack_s intern_stack;
+
+    libsconf_hash_map_s *intern_root;
 } libsconf_t;
 
 #endif /* !LIBSCONF_DATA_TYPE_H */

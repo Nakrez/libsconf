@@ -29,16 +29,25 @@ libsconf_t *libsconf_new()
         return NULL;
 
     conf->path = NULL;
+    conf->intern_stack.size = 0;
+
+    if ((conf->intern_root = lsc_hash_map_new()) == NULL)
+    {
+        free(conf);
+        return NULL;
+    }
 
     return conf;
 }
 
 void libsconf_free(libsconf_t *conf)
 {
+    printf("ssdf\n");
     if (conf)
     {
+        printf("sdf\n");
         free(conf->path);
-
+        lsc_hash_map_free(conf->intern_root);
         free(conf);
     }
 }
@@ -58,4 +67,14 @@ int libsconf_import(libsconf_t *conf)
     fclose(conf->intern_file);
 
     return ret_val;
+}
+
+char *libsconf_get_data(libsconf_t *conf, char *key)
+{
+    libsconf_data_s *ret_data = lsc_hash_map_get(conf->intern_root, key);
+
+    if (ret_data->type == DATA_VALUE)
+        return ret_data->data;
+
+    return NULL;
 }

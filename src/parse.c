@@ -53,6 +53,8 @@ static int variable(libsconf_t *conf)
     /* When variable is called checked on TOK_ID already made */
     int ret;
     char *var_name = conf->intern_tok.content;
+    libsconf_data_s *new_data = NULL;
+    libsconf_hash_map_s *hm = NULL;
 
     if (var_name == NULL)
         goto error;
@@ -63,8 +65,12 @@ static int variable(libsconf_t *conf)
     if (ret || conf->intern_tok.type != TOK_ASSIGN)
         goto error;
 
-    if (!data(conf))
+    if (!(new_data = data(conf)))
         goto error;
+
+    /* Insert extracted data in the current map */
+    hm = libsconf_stack_top(&conf->intern_stack);
+    lsc_hash_map_insert(hm, var_name, new_data);
 
     return 0;
 
@@ -76,6 +82,8 @@ error:
 int libsconf_parse(libsconf_t *conf)
 {
     int ret;
+
+    libsconf_stack_push(&conf->intern_stack, conf->intern_root);
 
     ret = libsconf_lex(conf, TOK_ID);
 

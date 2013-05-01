@@ -31,6 +31,7 @@
 # include <stdlib.h>
 
 # include <libsconf/data_type.h>
+# include <libsconf/hash_map.h>
 # include <libsconf/parse.h>
 
 /**
@@ -49,6 +50,8 @@ libsconf_t *libsconf_new();
 **          opening the file failed
 */
 int libsconf_import(libsconf_t *conf);
+
+char *libsconf_get_data(libsconf_t *conf, char *key);
 
 int libsconf_export(libsconf_t *conf);
 

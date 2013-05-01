@@ -1,6 +1,7 @@
 SET(alias "/"
           "/test/"
           "/test/list/"
+          "/test/general/"
           "/test/hash_map/")
 
 FOREACH(name ${alias})
