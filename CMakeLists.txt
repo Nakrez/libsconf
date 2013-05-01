@@ -9,6 +9,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_DEBUG}")
 add_library(libsconf
             src/list.c
             src/hash_map.c
+            src/data.c
             src/parse.c
             src/lex.c
             src/libsconf.c)

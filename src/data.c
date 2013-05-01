@@ -1,9 +1,4 @@
 /**
-** @file data.h
-** @brief Internal data of libsconf
-** @date 04/29/2013
-** @author Baptiste COVOLATO <b.covolato@gmail.com>
-**
 ** Copyright (C) 2013 Baptiste COVOLATO
 ** Permission is hereby granted, free of charge, to any person obtaining a copy
 ** of this software and associated documentation files (the "Software"), to
@@ -24,22 +19,22 @@
 ** THE SOFTWARE.
 */
 
-#ifndef LIBSCONF_DATA_H
-# define LIBSCONF_DATA_H
+#include <libsconf/data.h>
+#include <libsconf/hash_map.h>
 
-typedef enum
+void libsconf_data_free(libsconf_data_s *data)
 {
-    DATA_VALUE,
-    DATA_LIST,
-    DATA_HASH
-} libsconf_data_type_e;
-
-typedef struct
-{
-    libsconf_data_type_e type;
-    void *data;
-} libsconf_data_s;
-
-void libsconf_data_free(libsconf_data_s *data);
-
-#endif /* !DATA_H */
+    switch(data->type)
+    {
+        case DATA_VALUE:
+            free(data->data);
+            free(data);
+            break;
+        case DATA_LIST:
+            /* FIXME TODO */
+            break;
+        case DATA_HASH:
+            lsc_hash_map_free(data->data);
+            break;
+    }
+}

@@ -6,6 +6,7 @@ add_definitions(-Wall -Wextra -std=c99 -pedantic -I../../include)
 add_executable(hash
                EXCLUDE_FROM_ALL
                ../../src/hash_map.c
+               ../../src/data.c
                hash.c)
 
 ADD_TEST(ctest_build_hash "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target hash)

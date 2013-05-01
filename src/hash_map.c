@@ -76,6 +76,8 @@ static int hash_map_resize(libsconf_hash_map_s *hm)
         }
     }
 
+    free(table);
+
     return 0;
 }
 
@@ -156,12 +158,25 @@ int lsc_hash_map_insert(libsconf_hash_map_s *hm, char *key,
 
 void lsc_hash_map_free(libsconf_hash_map_s *hm)
 {
+    libsconf_hash_data_s *llist = NULL;
+    libsconf_hash_data_s *temp = NULL;
+
     if (hm)
     {
         for (unsigned i = 0; i < hm->total_size; ++i)
         {
-            /* FIXME : free data */
-            free(hm->map[i]);
+            llist = hm->map[i];
+
+            while (llist)
+            {
+                /* FIXME : free data */
+                temp = llist->next;
+
+                libsconf_data_free(llist->data);
+                free(llist);
+
+                llist = temp;
+            }
         }
 
         free(hm->map);
