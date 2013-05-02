@@ -21,7 +21,7 @@
 
 #include <libsconf/libsconf.h>
 
-libsconf_t *libsconf_new()
+libsconf_t *lsc_new()
 {
     libsconf_t *conf = NULL;
 
@@ -40,7 +40,7 @@ libsconf_t *libsconf_new()
     return conf;
 }
 
-void libsconf_free(libsconf_t *conf)
+void lsc_free(libsconf_t *conf)
 {
     if (conf)
     {

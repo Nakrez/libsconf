@@ -40,7 +40,7 @@
 **
 ** @return  The allocated configuration state, NULL if it failed
 */
-libsconf_t *libsconf_new();
+libsconf_t *lsc_new();
 
 /**
 ** @brief   Load a configuration from a file (in @a conf->path)
@@ -60,7 +60,7 @@ int libsconf_export(libsconf_t *conf);
 **
 ** @param   conf    The configuration state you want to free
 */
-void libsconf_free(libsconf_t *conf);
+void lsc_free(libsconf_t *conf);
 
 libsconf_data_type_e lsc_var_exists(libsconf_t *conf, char *key);
 

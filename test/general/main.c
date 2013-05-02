@@ -3,7 +3,7 @@
 
 int main()
 {
-    libsconf_t *conf = libsconf_new();
+    libsconf_t *conf = lsc_new();
 
     conf->path = strdup("test.cfg");
 
@@ -16,7 +16,7 @@ int main()
     assert(lsc_var_exists(conf, "test_map.map") != DATA_NONE);
     assert(lsc_var_exists(conf, "test_map.non_exist") == DATA_NONE);
 
-    libsconf_free(conf);
+    lsc_free(conf);
 
     return 0;
 }
