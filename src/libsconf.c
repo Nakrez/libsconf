@@ -67,7 +67,14 @@ int libsconf_import(libsconf_t *conf)
     return ret_val;
 }
 
-char *libsconf_get_data(libsconf_t *conf, char *key)
+libsconf_data_type_e lsc_var_exists(libsconf_t *conf, char *key)
+{
+    int len = strlen(key);
+    char *dup_key = alloca(len);
+    return DATA_NONE;
+}
+
+char *libsconf_get_string(libsconf_t *conf, char *key)
 {
     libsconf_data_s *ret_data = lsc_hash_map_get(conf->intern_root, key);
 

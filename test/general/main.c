@@ -10,7 +10,7 @@ int main()
     if (libsconf_import(conf))
         assert(0);
 
-    assert(!strcmp(libsconf_get_data(conf, "test_var"), "data"));
+    assert(!strcmp(libsconf_get_string(conf, "test_var"), "data"));
 
     libsconf_free(conf);
 

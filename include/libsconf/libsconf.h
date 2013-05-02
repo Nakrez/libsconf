@@ -51,8 +51,6 @@ libsconf_t *libsconf_new();
 */
 int libsconf_import(libsconf_t *conf);
 
-char *libsconf_get_data(libsconf_t *conf, char *key);
-
 int libsconf_export(libsconf_t *conf);
 
 /**
@@ -62,5 +60,9 @@ int libsconf_export(libsconf_t *conf);
 ** @param   conf    The configuration state you want to free
 */
 void libsconf_free(libsconf_t *conf);
+
+libsconf_data_type_e lsc_var_exists(libsconf_t *conf, char *key);
+
+char *libsconf_get_string(libsconf_t *conf, char *key);
 
 #endif /* !LIBSCONF_H */

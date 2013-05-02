@@ -29,6 +29,7 @@
 
 typedef enum
 {
+    DATA_NONE,
     DATA_VALUE,
     DATA_LIST,
     DATA_HASH
