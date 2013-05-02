@@ -67,18 +67,83 @@ int libsconf_import(libsconf_t *conf)
     return ret_val;
 }
 
+static int find_last_of(const char *str, char c)
+{
+    int pos = -1;
+    int count = 0;
+
+    while (*str)
+    {
+        if (*str == c)
+            pos = count;
+
+        ++count;
+        ++str;
+    }
+
+    return pos;
+}
+
+static libsconf_data_s *lsc_get_data(libsconf_t *conf, char *key)
+{
+    size_t len = strlen(key);
+
+    char *dup_key = alloca(len + 1);
+
+    char *last_word = dup_key + find_last_of(key, '.');
+
+    char *tmp_str = dup_key;
+
+    libsconf_hash_map_s *hm = conf->intern_root;
+    libsconf_data_s *data_tmp = NULL;
+
+    strcpy(dup_key, key);
+
+    while (*dup_key)
+    {
+        if (*dup_key == '.')
+        {
+            *dup_key = 0;
+
+            /* Find next key */
+            data_tmp = lsc_hash_map_get(hm, tmp_str);
+
+            if (data_tmp == NULL)
+                return NULL;
+            else if (data_tmp->type != DATA_HASH && last_word > tmp_str)
+                return NULL;
+
+            hm = data_tmp->data;
+
+            tmp_str = ++dup_key;
+        }
+        else
+            ++dup_key;
+    }
+
+    data_tmp = lsc_hash_map_get(hm, tmp_str);
+
+    if (!data_tmp)
+        return NULL;
+
+    return data_tmp;
+}
+
 libsconf_data_type_e lsc_var_exists(libsconf_t *conf, char *key)
 {
-    int len = strlen(key);
-    char *dup_key = alloca(len);
+    libsconf_data_s *data = lsc_get_data(conf, key);
+
+    if (data)
+        return data->type;
+
     return DATA_NONE;
 }
 
-char *libsconf_get_string(libsconf_t *conf, char *key)
+char *lsc_get_string(libsconf_t *conf, char *key)
 {
-    libsconf_data_s *ret_data = lsc_hash_map_get(conf->intern_root, key);
+    libsconf_data_s *ret_data = lsc_get_data(conf, key);
 
-    if (ret_data->type == DATA_VALUE)
+    if (ret_data && ret_data->type == DATA_VALUE)
         return ret_data->data;
 
     return NULL;

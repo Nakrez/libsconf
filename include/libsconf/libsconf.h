@@ -29,6 +29,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <alloca.h>
 
 # include <libsconf/data_type.h>
 # include <libsconf/hash_map.h>
@@ -63,6 +64,6 @@ void libsconf_free(libsconf_t *conf);
 
 libsconf_data_type_e lsc_var_exists(libsconf_t *conf, char *key);
 
-char *libsconf_get_string(libsconf_t *conf, char *key);
+char *lsc_get_string(libsconf_t *conf, char *key);
 
 #endif /* !LIBSCONF_H */

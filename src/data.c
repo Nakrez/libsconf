@@ -36,5 +36,7 @@ void libsconf_data_free(libsconf_data_s *data)
         case DATA_HASH:
             lsc_hash_map_free(data->data);
             break;
+        case DATA_NONE:
+            break;
     }
 }
